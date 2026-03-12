@@ -2,7 +2,7 @@
   <div class="flex flex-col items-start px-2">
     <div class="relative mb-6 rounded-2xl bg-[#0a0a0a] w-full pt-[100%] overflow-hidden border border-[#262626]">
       <div class="absolute inset-0 flex items-center justify-center">
-        <img src="../assets/profile.png" alt="Profile Picture" class="w-full h-full object-cover">
+        <img src="../assets/Profile.png" alt="Profile Picture" class="w-full h-full object-cover">
       </div>
     </div>
     
