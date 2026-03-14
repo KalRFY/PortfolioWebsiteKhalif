@@ -24,18 +24,20 @@
       <div class="space-y-12">
         <!-- TMMIN -->
         <div class="relative flex flex-col md:flex-row items-center md:items-start md:justify-between w-full group">
-          <div class="hidden md:flex flex-col w-[45%] items-end text-right pr-8 pt-1">
-            <h3 class="text-xl font-medium text-[#E6E6E6] group-hover:text-cyan-400 transition-colors">PT Toyota Motor Manufacturing Indonesia (TMMIN)</h3>
-            <p class="text-sm font-medium text-cyan-500 mb-1">Feb 2025 – Feb 2026 • Karawang, West Java</p>
+          <div class="flex flex-col w-full md:w-[45%] items-start md:items-end text-left md:text-right pl-10 md:pl-0 pr-0 md:pr-8 pt-1 mb-4 md:mb-0">
+            <h3 class="text-lg md:text-xl font-bold md:font-medium text-[#E6E6E6] group-hover:text-cyan-400 transition-colors">PT Toyota Motor Manufacturing Indonesia (TMMIN)</h3>
+            <p class="text-xs md:text-sm font-medium text-cyan-500 mb-4">Feb 2025 – Feb 2026 • Karawang, West Java</p>
+            <div class="w-full aspect-video rounded-xl bg-[#141414] mb-4 border border-[#262626] overflow-hidden">
+               <img :src="tmminImg1" alt="TMMIN Experience" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" />
+            </div>
+            <div class="w-full aspect-video rounded-xl bg-[#141414] border border-[#262626] overflow-hidden">
+               <img :src="tmminImg2" alt="TMMIN Experience" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" />
+            </div>
           </div>
           
           <div class="absolute left-3 md:left-1/2 w-4 h-4 rounded-full bg-[#050505] border-2 border-cyan-400 -translate-x-1/2 z-10 transition-transform group-hover:scale-125 group-hover:bg-cyan-400"></div>
 
           <div class="w-full md:w-[45%] pl-10 md:pl-8">
-            <div class="md:hidden mb-2">
-              <h3 class="text-lg font-bold text-[#E6E6E6] group-hover:text-cyan-400 transition-colors">PT Toyota Motor Manufacturing Indonesia (TMMIN)</h3>
-              <p class="text-xs font-medium text-cyan-500 mb-1">Feb 2025 – Feb 2026 • Karawang</p>
-            </div>
             <div class="p-8 rounded-2xl bg-[#0a0a0a] border border-[#262626] hover:border-[#646464] transition-all shadow-lg hover:shadow-cyan-900/10">
               <h4 class="text-lg text-[#E6E6E6] font-medium mb-4">Software Engineer Intern</h4>
               <ul class="text-base text-[#646464] space-y-3 list-none custom-list leading-relaxed">
@@ -51,18 +53,17 @@
 
         <!-- HIMTI Web Dev -->
         <div class="relative flex flex-col md:flex-row items-center md:items-start md:justify-between w-full group">
-          <div class="hidden md:block w-[45%] pl-8 pt-1 order-3">
-             <h3 class="text-xl font-medium text-[#E6E6E6] group-hover:text-cyan-400 transition-colors">HIMTI BINUS</h3>
-             <p class="text-sm font-medium text-cyan-500 mb-1">Mar 2023 – Mar 2025 • Jakarta</p>
+          <div class="flex flex-col w-full md:w-[45%] items-start text-left pl-10 md:pl-8 pr-0 pt-1 mb-4 md:mb-0 order-1 md:order-3">
+             <h3 class="text-lg md:text-xl font-bold md:font-medium text-[#E6E6E6] group-hover:text-cyan-400 transition-colors">HIMTI BINUS</h3>
+             <p class="text-xs md:text-sm font-medium text-cyan-500 mb-4">Mar 2023 – Mar 2025 • Jakarta</p>
+             <div class="w-full aspect-video rounded-xl bg-[#141414] border border-[#262626] overflow-hidden">
+               <img :src="himtiImg" alt="HIMTI Experience" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" />
+             </div>
           </div>
           
           <div class="absolute left-3 md:left-1/2 w-4 h-4 rounded-full bg-[#050505] border-2 border-[#646464] -translate-x-1/2 z-10 transition-transform group-hover:scale-125 group-hover:border-cyan-400 order-2"></div>
 
-          <div class="w-full md:w-[45%] pl-10 md:pr-8 md:pl-0 text-left md:text-right order-1">
-            <div class="md:hidden mb-2">
-              <h3 class="text-lg font-bold text-[#E6E6E6] group-hover:text-cyan-400 transition-colors">HIMTI BINUS</h3>
-              <p class="text-xs font-medium text-cyan-500 mb-1">Mar 2023 – Mar 2025 • Jakarta</p>
-            </div>
+          <div class="w-full md:w-[45%] pl-10 md:pr-8 md:pl-0 text-left md:text-right order-3 md:order-1">
             <div class="p-8 rounded-2xl bg-[#0a0a0a] border border-[#262626] hover:border-[#646464] transition-all shadow-lg text-left">
               <h4 class="text-lg text-[#E6E6E6] font-medium mb-4">Web Development Division</h4>
               <ul class="text-base text-[#646464] space-y-3 list-none custom-list leading-relaxed">
@@ -75,23 +76,37 @@
 
         <!-- TECHNO -->
         <div class="relative flex flex-col md:flex-row items-center md:items-start md:justify-between w-full group">
-          <div class="hidden md:flex flex-col w-[45%] items-end text-right pr-8 pt-1">
-            <h3 class="text-xl font-medium text-[#E6E6E6] group-hover:text-cyan-400 transition-colors">TECHNO HIMTI BINUS</h3>
-            <p class="text-sm font-medium text-cyan-500 mb-1">Apr 2023 – Sep 2023 • Jakarta</p>
+          <div class="flex flex-col w-full md:w-[45%] items-start md:items-end text-left md:text-right pl-10 md:pl-0 pr-0 md:pr-8 pt-1 mb-4 md:mb-0">
+            <h3 class="text-lg md:text-xl font-bold md:font-medium text-[#E6E6E6] group-hover:text-cyan-400 transition-colors">TECHNO HIMTI BINUS</h3>
+            <p class="text-xs md:text-sm font-medium text-cyan-500 mb-4">Apr 2023 – Sep 2023 • Jakarta</p>
+            <div class="w-full aspect-video rounded-xl bg-[#141414] mb-4 border border-[#262626] overflow-hidden">
+               <img :src="technoImg1" alt="TECHNO Experience" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" />
+            </div>
+            <div class="w-full aspect-video rounded-xl bg-[#141414] mb-4 border border-[#262626] overflow-hidden">
+               <img :src="technoImg2" alt="TECHNO Experience" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" />
+            </div>
+            <div class="w-full aspect-video rounded-xl bg-[#141414] border border-[#262626] overflow-hidden">
+               <img :src="technoImg3" alt="TECHNO Experience" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" />
+            </div>
           </div>
           
           <div class="absolute left-3 md:left-1/2 w-4 h-4 rounded-full bg-[#050505] border-2 border-[#646464] -translate-x-1/2 z-10 transition-transform group-hover:scale-125 group-hover:border-cyan-400"></div>
 
           <div class="w-full md:w-[45%] pl-10 md:pl-8">
-            <div class="md:hidden mb-2">
-              <h3 class="text-lg font-bold text-[#E6E6E6] group-hover:text-cyan-400 transition-colors">TECHNO HIMTI BINUS</h3>
-              <p class="text-xs font-medium text-cyan-500 mb-1">Apr 2023 – Sep 2023 • Jakarta</p>
-            </div>
             <div class="p-8 rounded-2xl bg-[#0a0a0a] border border-[#262626] hover:border-[#646464] transition-all shadow-lg">
               <h4 class="text-lg text-[#E6E6E6] font-medium mb-4">Sponsorship Committee</h4>
-              <ul class="text-base text-[#646464] space-y-3 list-none custom-list leading-relaxed">
-                <li>Led sponsorship outreach for TECHNO HIMTI, BINUS University's largest Computer Science freshman event.</li>
-                <li>Built partnerships and enhanced communication, negotiation, and stakeholder management skills.</li>
+              <div class="text-base text-[#646464] space-y-4 mb-6 leading-relaxed">
+                <p>As a member of the TECHNO Sponsorship Committee, I spearheaded sponsor partnerships for the largest event catering to Computer Science freshmen at BINUS University. Through strategic negotiation and tailored sponsorship packages, I cultivated relationships with industry leaders, refining my communication and negotiation skills.</p>
+                <p>This role also sharpened my abilities in strategic planning, budget management, and problem-solving. I analyzed sponsorship opportunities, ensuring alignment with event objectives and maximizing value for sponsors and participants alike.</p>
+              </div>
+              <ul class="text-base text-[#646464] gap-y-2 gap-x-4 grid grid-cols-1 sm:grid-cols-2 list-none custom-list leading-relaxed">
+                <li>Negotiation</li>
+                <li>Strategic Planning</li>
+                <li>Budget Management</li>
+                <li>Communication</li>
+                <li>Problem Solving</li>
+                <li>Relationship Management</li>
+                <li>Event Planning</li>
               </ul>
             </div>
           </div>
@@ -108,7 +123,7 @@
       
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
         <!-- LSTM -->
-        <div class="p-8 rounded-2xl bg-[#0a0a0a] border border-[#262626] hover:border-[#646464] transition-all shadow-lg group">
+        <router-link to="/projects/stock-prediction" class="block p-8 rounded-2xl bg-[#0a0a0a] border border-[#262626] hover:border-[#646464] transition-all shadow-lg group cursor-pointer">
           <div class="flex items-center gap-2 mb-6">
              <div class="px-3 py-1.5 rounded bg-emerald-500/10 text-emerald-400 text-xs font-bold tracking-wider uppercase">Data Analytics</div>
           </div>
@@ -118,10 +133,10 @@
             <li>Developed stock price prediction model using Python and TensorFlow.</li>
             <li>Achieved MAE below 0.015 and improved accuracy by 15% compared to baseline models.</li>
           </ul>
-        </div>
+        </router-link>
         
         <!-- Google Capstone -->
-        <div class="p-8 rounded-2xl bg-[#0a0a0a] border border-[#262626] hover:border-[#646464] transition-all shadow-lg group">
+        <router-link to="/projects/cyclistic-bike-share" class="block p-8 rounded-2xl bg-[#0a0a0a] border border-[#262626] hover:border-[#646464] transition-all shadow-lg group cursor-pointer">
           <div class="flex items-center gap-2 mb-6">
              <div class="px-3 py-1.5 rounded bg-emerald-500/10 text-emerald-400 text-xs font-bold tracking-wider uppercase">Data Analytics</div>
           </div>
@@ -133,7 +148,7 @@
             <li>Performed exploratory data analysis to identify behavioral patterns.</li>
             <li>Created 5+ visualizations using ggplot2 and delivered 3 actionable recommendations to increase annual memberships.</li>
           </ul>
-        </div>
+        </router-link>
       </div>
     </section>
 
@@ -182,6 +197,13 @@
 
 <script setup>
 import { Briefcase, FolderGit2, Award } from 'lucide-vue-next'
+
+import tmminImg1 from '../assets/Experience/Smartandon Image 1.jpg'
+import tmminImg2 from '../assets/Experience/Smartandon Image 2.jpg'
+import himtiImg from '../assets/Experience/Web Development Division.jpg'
+import technoImg1 from '../assets/Experience/Techno Image 1.jpg'
+import technoImg2 from '../assets/Experience/Techno Image 2.jpg'
+import technoImg3 from '../assets/Experience/Techno Image 3.png'
 </script>
 
 <style scoped>

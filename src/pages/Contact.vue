@@ -1,6 +1,5 @@
 <template>
   <div class="min-h-screen flex flex-col w-full max-w-5xl mx-auto px-6 py-12 md:py-20 md:px-12">
-    
     <!-- Header -->
     <section class="mb-16 fade-in" v-motion-fade-visible-once>
       <h1 class="text-3xl md:text-5xl font-medium text-[#E6E6E6] tracking-tight">

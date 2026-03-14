@@ -29,21 +29,12 @@
     <section class="mb-20 fade-in" v-motion-fade-visible-once>
       <h2 class="text-2xl font-medium text-[#E6E6E6] mb-8">Education</h2>
       
-      <div class="flex flex-col gap-8 relative before:absolute before:inset-0 before:ml-[5px] before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-[#262626] before:to-transparent">
-        <div v-for="(edu, index) in education" :key="index" class="relative pl-8 md:pl-0">
-          <div class="md:flex items-center justify-between md:flex-row-reverse">
-            <div class="flex items-center justify-start w-full md:w-1/2 md:pl-8">
-               <div class="hidden md:block absolute left-1/2 w-4 h-4 rounded-full bg-[#050505] border-2 border-[#646464] -translate-x-1/2"></div>
-               <div class="md:hidden absolute left-0 w-4 h-4 rounded-full bg-[#050505] border-2 border-[#646464] mt-1.5 translate-x-[0.5px]"></div>
-               
-               <div>
-                 <h3 class="text-[#E6E6E6] font-medium text-base sm:text-lg flex items-center gap-2">
-                    <CheckCircle2 class="w-5 h-5 text-[#646464] hidden md:block" /> 
-                    {{ edu.school }}
-                 </h3>
-                 <p class="text-sm text-[#646464] mt-1">{{ edu.period }}</p>
-               </div>
-            </div>
+      <div class="flex flex-col gap-8">
+        <div v-for="(edu, index) in education" :key="index" class="flex items-start gap-4">
+          <div class="mt-2 w-2 h-2 rounded-full bg-[#646464] shrink-0"></div>
+          <div>
+            <h3 class="text-[#E6E6E6] font-medium text-lg">{{ edu.school }}</h3>
+            <p class="text-sm text-[#646464] mt-1">{{ edu.period }}</p>
           </div>
         </div>
       </div>
@@ -125,7 +116,7 @@
 </template>
 
 <script setup>
-import { MapPin, ArrowRight, CheckCircle2 } from 'lucide-vue-next'
+import { MapPin, ArrowRight } from 'lucide-vue-next'
 
 const education = [
   { school: 'Universitas Bina Nusantara', period: '2022 - Present' },
