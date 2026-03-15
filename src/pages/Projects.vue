@@ -13,19 +13,17 @@
       <div class="flex flex-col gap-16">
         
         <!-- Project 1 -->
-        <div class="group cursor-pointer">
+        <router-link to="/projects/smartandon" class="group block cursor-pointer">
           <div class="w-full aspect-video rounded-2xl bg-[#0a0a0a] mb-4 overflow-hidden border border-[#262626] shadow-xl transition-transform duration-300 group-hover:scale-[1.02]">
-             <!-- Placeholder for Smartandon Image -->
-             <div class="w-full h-full bg-[#141414] flex items-center justify-center text-[#646464] font-medium">
-               <span class="opacity-50 text-xl">Smartandon Presentation Image Placeholder</span>
-             </div>
+             <img :src="smartandonImg" alt="Smartandon" class="w-full h-full object-cover" />
+             <img :src="smartandonImg" alt="Smartandon" class="w-full h-full object-cover object-top" />
           </div>
           <div class="text-xs text-cyan-500 font-bold tracking-wider mb-2 uppercase">SOFTWARE ENGINEERING PROJECT</div>
           <h3 class="text-2xl font-medium text-[#E6E6E6] group-hover:text-cyan-400 transition-colors">Smartandon</h3>
-        </div>
+        </router-link>
         
         <!-- Project 2 -->
-        <div class="group cursor-pointer">
+        <router-link to="/projects/stock-prediction" class="group block cursor-pointer">
           <div class="w-full aspect-video rounded-2xl bg-[#0a0a0a] mb-4 overflow-hidden border border-[#262626] shadow-xl transition-transform duration-300 group-hover:scale-[1.02]">
              <!-- Placeholder for Data Analytics Image -->
              <div class="w-full h-full bg-[#141414] flex items-center justify-center text-[#646464] font-medium tracking-tight text-center px-4">
@@ -34,7 +32,17 @@
           </div>
           <div class="text-xs text-cyan-500 font-bold tracking-wider mb-2 uppercase">DATA ANALYTICS PROJECT</div>
           <h3 class="text-2xl font-medium text-[#E6E6E6] group-hover:text-cyan-400 transition-colors">Project Data Analytics Stock Predictions Using LSTM</h3>
-        </div>
+        </router-link>
+        
+        <!-- Project 3 -->
+        <router-link to="/projects/robot-inspection" class="group block cursor-pointer">
+          <div class="w-full aspect-video rounded-2xl bg-[#0a0a0a] mb-4 overflow-hidden border border-[#262626] shadow-xl transition-transform duration-300 group-hover:scale-[1.02]">
+             <img :src="robotInspectionImg" alt="Robot Inspection System" class="w-full h-full object-cover" />
+             <img :src="robotInspectionImg" alt="Robot Inspection System" class="w-full h-full object-cover object-top" />
+          </div>
+          <div class="text-xs text-cyan-500 font-bold tracking-wider mb-2 uppercase">SOFTWARE ENGINEERING PROJECT</div>
+          <h3 class="text-2xl font-medium text-[#E6E6E6] group-hover:text-cyan-400 transition-colors">Robot Inspection System</h3>
+        </router-link>
         
       </div>
     </section>
@@ -63,6 +71,8 @@
 
 <script setup>
 // Projects Component
+import smartandonImg from '../assets/Experience/Smartandon Image 1.jpg'
+import robotInspectionImg from '../assets/Experience/Robot Inspection 1.jpg'
 </script>
 
 <style scoped>

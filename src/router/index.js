@@ -5,6 +5,7 @@ import Projects from '../pages/Projects.vue'
 import Stack from '../pages/Stack.vue'
 import Contact from '../pages/Contact.vue'
 import Experience from '../pages/Experience.vue'
+import ProjectDetail from '../pages/ProjectDetail.vue'
 
 const routes = [
   {
@@ -36,6 +37,11 @@ const routes = [
     path: '/experience',
     name: 'Experience',
     component: Experience
+  },
+  {
+    path: '/projects/:id',
+    name: 'ProjectDetail',
+    component: ProjectDetail
   }
 ]
 

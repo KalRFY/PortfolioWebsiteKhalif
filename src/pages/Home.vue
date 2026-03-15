@@ -33,24 +33,21 @@
       
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
         <!-- Project 1 -->
-        <div class="group cursor-pointer">
+        <router-link to="/projects/smartandon" class="group block cursor-pointer">
           <div class="w-full aspect-video rounded-2xl bg-[#0a0a0a] mb-4 overflow-hidden border border-[#262626] shadow-xl transition-transform duration-300 group-hover:scale-[1.02]">
-             <!-- Placeholder for SmartLender Image -->
-             <div class="w-full h-full bg-[#141414] flex items-center justify-center text-[#646464] font-medium">Smartandon Image</div>
+             <img :src="smartandonImg" alt="Smartandon" class="w-full h-full object-cover" />
           </div>
           <div class="text-xs text-cyan-400 font-bold tracking-wider mb-2 uppercase">Software Development Project</div>
           <h3 class="text-xl font-medium text-[#E6E6E6] group-hover:text-cyan-400 transition-colors">Smartandon</h3>
-        </div>
+        </router-link>
         
-        <!-- Project 2 -->
-        <div class="group cursor-pointer">
+        <router-link to="/projects/robot-inspection" class="group block cursor-pointer">
           <div class="w-full aspect-video rounded-2xl bg-[#0a0a0a] mb-4 overflow-hidden border border-[#262626] shadow-xl transition-transform duration-300 group-hover:scale-[1.02]">
-             <!-- Placeholder for Data Analytics Image -->
-             <div class="w-full h-full bg-[#141414] flex items-center justify-center text-[#646464] font-medium tracking-tight text-center px-4">LSTM Stock Predictions Image</div>
+             <img :src="robotInspectionImg" alt="Robot Inspection System" class="w-full h-full object-cover" />
           </div>
-          <div class="text-xs text-cyan-400 font-bold tracking-wider mb-2 uppercase">DATA ANALYTICS PROJECT</div>
-          <h3 class="text-xl font-medium text-[#E6E6E6] group-hover:text-cyan-400 transition-colors">Project Data Analytics Stock Predictions Using LSTM</h3>
-        </div>
+          <div class="text-xs text-cyan-400 font-bold tracking-wider mb-2 uppercase">SOFTWARE ENGINEERING PROJECT</div>
+          <h3 class="text-xl font-medium text-[#E6E6E6] group-hover:text-cyan-400 transition-colors">Robot Inspection System</h3>
+        </router-link>
       </div>
       
       <div class="flex justify-end">
@@ -67,8 +64,8 @@
       
       <div class="flex flex-col gap-4 mb-8">
         <div v-for="stack in stacks" :key="stack.name" class="flex items-center gap-5 p-5 rounded-2xl bg-[#0a0a0a] border border-[#262626] hover:border-[#646464] transition-colors">
-          <div class="w-12 h-12 rounded-lg bg-[#141414] flex items-center justify-center text-2xl font-bold" :class="stack.colorClass">
-            {{ stack.icon }}
+          <div class="w-12 h-12 rounded-lg flex items-center justify-center bg-[#141414] p-2 overflow-hidden">
+            <img :src="stack.icon" :alt="`${stack.name} logo`" class="w-full h-full object-contain" />
           </div>
           <div>
             <h3 class="text-base font-medium text-[#E6E6E6]">{{ stack.name }}</h3>
@@ -109,14 +106,22 @@
 
 <script setup>
 import { MapPin, ArrowRight } from 'lucide-vue-next'
+import smartandonImg from '../assets/Experience/Smartandon Image 1.jpg'
+import robotInspectionImg from '../assets/Experience/Robot Inspection 1.jpg'
+import vueLogo from '../assets/StackLogo/Vue.js_Logo.png'
+import nodeLogo from '../assets/StackLogo/Node.js_Logo.png'
+import pythonLogo from '../assets/StackLogo/Python_Logo.png'
+import mysqlLogo from '../assets/StackLogo/MySQL_Logo.png'
+import rLogo from '../assets/StackLogo/R_Logo.png'
+import javaLogo from '../assets/StackLogo/Java_Logo.png'
 
 const stacks = [
-  { name: 'Vue.js', category: 'Programming language', icon: 'V', colorClass: 'text-green-500' },
-  { name: 'Node.js', category: 'Programming language', icon: 'N', colorClass: 'text-green-600' },
-  { name: 'Python', category: 'Programming language', icon: 'P', colorClass: 'text-blue-500' },
-  { name: 'MySQL', category: 'Database & Tools', icon: 'M', colorClass: 'text-yellow-500' },
-  { name: 'R', category: 'Programming language', icon: 'R', colorClass: 'text-blue-400' },
-  { name: 'Java', category: 'Programming language', icon: 'J', colorClass: 'text-red-500' }
+  { name: 'Vue.js', category: 'Programming language', icon: vueLogo },
+  { name: 'Node.js', category: 'Programming language', icon: nodeLogo },
+  { name: 'Python', category: 'Programming language', icon: pythonLogo },
+  { name: 'MySQL', category: 'Database & Tools', icon: mysqlLogo },
+  { name: 'R', category: 'Programming language', icon: rLogo },
+  { name: 'Java', category: 'Programming language', icon: javaLogo }
 ]
 </script>
 

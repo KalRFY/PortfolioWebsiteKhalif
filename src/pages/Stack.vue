@@ -16,8 +16,8 @@
           <div class="flex flex-col sm:flex-row items-start gap-6">
             
             <div class="flex items-center gap-4 w-full sm:w-auto min-w-[200px]">
-              <div class="w-12 h-12 rounded-lg flex items-center justify-center text-2xl font-bold bg-[#141414]" :class="stack.colorClass">
-                {{ stack.icon }}
+              <div class="w-12 h-12 rounded-lg flex items-center justify-center bg-[#141414] p-2 overflow-hidden">
+                <img :src="stack.icon" :alt="`${stack.name} logo`" class="w-full h-full object-contain" />
               </div>
               
               <div>
@@ -61,75 +61,76 @@
 </template>
 
 <script setup>
+import vueLogo from '../assets/StackLogo/Vue.js_Logo.png'
+import nodeLogo from '../assets/StackLogo/Node.js_Logo.png'
+import pythonLogo from '../assets/StackLogo/Python_Logo.png'
+import mysqlLogo from '../assets/StackLogo/MySQL_Logo.png'
+import rLogo from '../assets/StackLogo/R_Logo.png'
+import javaLogo from '../assets/StackLogo/Java_Logo.png'
+import figmaLogo from '../assets/StackLogo/Figma_Logo.png'
+import htmlLogo from '../assets/StackLogo/HTML5_Logo.png'
+import jsLogo from '../assets/StackLogo/JavaScript_Logo.png'
+import cLogo from '../assets/StackLogo/C_Logo.png'
+
 const stacks = [
   { 
     name: 'Vue.js', 
     category: 'Programming language', 
-    icon: 'V', 
-    colorClass: 'text-green-500',
+    icon: vueLogo,
     description: "I use Vue.js for building interactive and scalable web interfaces. It's my go-to framework for crafting single-page applications with clean, component-based architectures." 
   },
   { 
     name: 'Node.js', 
     category: 'Programming language', 
-    icon: 'N', 
-    colorClass: 'text-green-600',
+    icon: nodeLogo,
     description: "I rely on Node.js to power the backend of my web applications. It allows me to use JavaScript full-stack, building fast, scalable network applications and RESTful APIs." 
   },
   { 
     name: 'Python', 
     category: 'Programming language', 
-    icon: 'P', 
-    colorClass: 'text-blue-500',
+    icon: pythonLogo,
     description: "I use Python for a wide range of tasks, from automated repetitive processes to complex data analysis. Its simplicity and powerful libraries like Pandas and NumPy make it my go-to for any data-driven project." 
   },
   { 
     name: 'MySQL', 
     category: 'Database', 
-    icon: 'M', 
-    colorClass: 'text-yellow-500',
+    icon: mysqlLogo,
     description: "SQL helps me manage and query databases efficiently. Whether I'm retrieving data for analysis or optimizing database performance, SQL is essential for making sense of structured data." 
   },
   { 
     name: 'R', 
     category: 'Programming language', 
-    icon: 'R', 
-    colorClass: 'text-blue-400',
+    icon: rLogo,
     description: "R is my tool of choice for statistical analysis and data visualization. It's perfect for diving deep into large datasets, running models, and creating insightful graphics to better understand patterns." 
   },
   { 
     name: 'Java', 
     category: 'Programming language', 
-    icon: 'J', 
-    colorClass: 'text-red-500',
+    icon: javaLogo,
     description: "I turn to Java when I need to build scalable, reliable applications. It's been a very valuable tool for me in developing both web and mobile apps that require robust architecture." 
   },
   { 
     name: 'Figma', 
     category: 'Collaborative Design', 
-    icon: 'F', 
-    colorClass: 'text-pink-500',
+    icon: figmaLogo,
     description: "Figma is my go-to for UI/UX design. I love using it to create clean, intuitive user interfaces and collaborate with teams in real-time, turning ideas into tangible designs." 
   },
   { 
     name: 'HTML 5', 
     category: 'Structure and Content', 
-    icon: '5', 
-    colorClass: 'text-orange-500',
+    icon: htmlLogo,
     description: "HTML is essential for me in creating the structure of web pages. I use it to build clean, organized layouts that form the foundation of any web project." 
   },
   { 
     name: 'JavaScript', 
     category: 'Programming language', 
-    icon: 'JS', 
-    colorClass: 'text-yellow-400',
+    icon: jsLogo,
     description: "JavaScript adds life to my web projects. I use it to make websites interactive and dynamic, enhancing the user experience with smooth, responsive functionalities." 
   },
   { 
     name: 'C', 
     category: 'Programming language', 
-    icon: 'C', 
-    colorClass: 'text-blue-600',
+    icon: cLogo,
     description: "C gives me the low-level control I need for projects that require performance optimization. I use it when I need to understand how things work under the hood, from memory management to efficient algorithms." 
   }
 ]
