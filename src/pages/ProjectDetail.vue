@@ -23,11 +23,21 @@
 
       <!-- Main Display / Asset -->
       <section class="mb-16 fade-in" v-motion-fade-visible-once>
-        <div class="w-full aspect-video rounded-2xl bg-[#0a0a0a] overflow-hidden border border-[#262626] shadow-xl">
-          <img v-if="project.image" :src="project.image" :alt="project.title" class="w-full h-full object-cover" />
-          <img v-if="project.image" :src="project.image" :alt="project.title" class="w-full h-full object-cover" :class="project.imagePosition || 'object-center'" />
+        <!-- Single image: full width -->
+        <div v-if="!project.image2" class="w-full aspect-video rounded-2xl bg-[#0a0a0a] overflow-hidden border border-[#262626] shadow-xl">
+          <img v-if="project.image" :src="project.image" :alt="project.title" class="w-full h-full object-cover cursor-pointer transition-transform duration-300 hover:scale-[1.02]" :class="project.imagePosition || 'object-center'" @click="openLightbox(project.image, project.title)" />
           <div v-else class="w-full h-full bg-[#141414] flex items-center justify-center text-[#646464] font-medium">
             Main Image / App Screenshot Placeholder
+          </div>
+        </div>
+
+        <!-- Two images: side by side -->
+        <div v-if="project.image2" class="grid grid-cols-2 gap-4">
+          <div class="w-full aspect-[4/3] rounded-2xl bg-[#0a0a0a] overflow-hidden border border-[#262626] shadow-xl">
+            <img :src="project.image" :alt="project.title" class="w-full h-full object-cover cursor-pointer transition-transform duration-300 hover:scale-[1.02]" :class="project.imagePosition || 'object-center'" @click="openLightbox(project.image, project.title)" />
+          </div>
+          <div class="w-full aspect-[4/3] rounded-2xl bg-[#0a0a0a] overflow-hidden border border-[#262626] shadow-xl">
+            <img :src="project.image2" :alt="project.title + ' Dashboard'" class="w-full h-full object-cover cursor-pointer transition-transform duration-300 hover:scale-[1.02]" :class="project.image2Position || 'object-center'" @click="openLightbox(project.image2, project.title + ' Dashboard')" />
           </div>
         </div>
       </section>
@@ -133,12 +143,102 @@
           <p v-for="(para, index) in project.lessonsLearned" :key="index" class="text-base md:text-lg text-[#646464] max-w-4xl leading-relaxed" v-html="para"></p>
         </div>
       </section>
+
+      <!-- Gallery Slider -->
+      <section v-if="project.gallery && project.gallery.length" class="mb-16 fade-in" v-motion-fade-visible-once>
+        <h2 class="text-2xl font-medium text-[#E6E6E6] mb-6">{{ project.galleryTitle || 'Gallery' }}</h2>
+        <div class="relative w-full aspect-video rounded-2xl bg-[#0a0a0a] overflow-hidden border border-[#262626] shadow-xl group">
+          <!-- Slides -->
+          <div
+            class="flex h-full transition-transform duration-500 ease-out"
+            :style="{ transform: `translateX(-${galleryIndex * 100}%)` }"
+          >
+            <div
+              v-for="(item, index) in project.gallery"
+              :key="index"
+              class="w-full h-full flex-shrink-0 flex items-center justify-center bg-[#0a0a0a]"
+            >
+              <img
+                :src="item.src || item"
+                :alt="item.alt || `${project.title} gallery ${index + 1}`"
+                class="w-full h-full object-cover cursor-pointer"
+                :class="item.position || 'object-center'"
+                @click="openLightbox(item.src || item, item.alt || `${project.title} gallery ${index + 1}`)"
+              />
+            </div>
+          </div>
+
+          <!-- Prev Button -->
+          <button
+            v-if="project.gallery.length > 1"
+            @click="prevSlide"
+            class="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 flex items-center justify-center rounded-full bg-black/60 backdrop-blur-sm border border-[#262626] text-[#E6E6E6] hover:bg-cyan-400 hover:text-black transition-all opacity-0 group-hover:opacity-100"
+            aria-label="Previous"
+          >
+            <ChevronLeft class="w-5 h-5" />
+          </button>
+
+          <!-- Next Button -->
+          <button
+            v-if="project.gallery.length > 1"
+            @click="nextSlide"
+            class="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 flex items-center justify-center rounded-full bg-black/60 backdrop-blur-sm border border-[#262626] text-[#E6E6E6] hover:bg-cyan-400 hover:text-black transition-all opacity-0 group-hover:opacity-100"
+            aria-label="Next"
+          >
+            <ChevronRight class="w-5 h-5" />
+          </button>
+
+          <!-- Caption -->
+          <div
+            v-if="currentGalleryCaption"
+            class="absolute bottom-0 left-0 right-0 px-4 py-3 bg-gradient-to-t from-black/80 to-transparent text-sm text-[#E6E6E6]"
+          >
+            {{ currentGalleryCaption }}
+          </div>
+        </div>
+
+        <!-- Dot Indicators -->
+        <div v-if="project.gallery.length > 1" class="flex justify-center gap-2 mt-4">
+          <button
+            v-for="(item, index) in project.gallery"
+            :key="index"
+            @click="galleryIndex = index"
+            :class="[
+              'h-2 rounded-full transition-all',
+              galleryIndex === index ? 'w-8 bg-cyan-400' : 'w-2 bg-[#262626] hover:bg-[#404040]'
+            ]"
+            :aria-label="`Go to slide ${index + 1}`"
+          ></button>
+        </div>
+      </section>
     </div>
 
     <div v-else class="flex-1 flex flex-col items-center justify-center text-center fade-in">
       <h1 class="text-4xl font-bold text-[#E6E6E6] mb-4">Project Not Found</h1>
       <p class="text-[#646464]">The project you're looking for doesn't exist.</p>
     </div>
+
+    <!-- Lightbox Modal -->
+    <Transition name="fade">
+      <div
+        v-if="lightboxImage"
+        class="fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-sm p-4 md:p-8"
+        @click.self="closeLightbox"
+      >
+        <button
+          @click="closeLightbox"
+          class="absolute top-4 right-4 md:top-6 md:right-6 w-10 h-10 flex items-center justify-center rounded-full bg-[#141414] border border-[#262626] text-[#E6E6E6] hover:bg-cyan-400 hover:text-black transition-colors z-10"
+          aria-label="Close"
+        >
+          <X class="w-5 h-5" />
+        </button>
+        <img
+          :src="lightboxImage"
+          :alt="lightboxAlt"
+          class="max-w-full max-h-full object-contain rounded-lg shadow-2xl"
+        />
+      </div>
+    </Transition>
 
     <!-- Footer -->
     <footer class="mt-auto border-t border-[#262626] pt-8 flex items-center justify-between gap-4">
@@ -151,141 +251,63 @@
 </template>
 
 <script setup>
-import { computed } from 'vue'
+import { computed, ref, watch, onMounted, onUnmounted } from 'vue'
 import { useRoute } from 'vue-router'
-import { ArrowLeft } from 'lucide-vue-next'
+import { ArrowLeft, X, ChevronLeft, ChevronRight } from 'lucide-vue-next'
 
-// Gambar spesifik untuk project jika ada (contoh untuk smartandon)
-import smartandonImg from '../assets/Experience/Smartandon Image 1.jpg'
-import robotInspectionImg from '../assets/Experience/Robot Inspection 1.jpg'
+import { projects } from '../data/projects'
 
 const route = useRoute()
 
-const projectData = {
-  'smartandon': {
-    title: 'Smartandon',
-    category: 'Software Development Project',
-    role: 'Software Engineer Intern',
-    description: "<strong>Smartandon</strong> is a web-based <strong>manufacturing monitoring system</strong> designed to improve machine performance visibility and disruption handling in production environments.\n\nIn many manufacturing environments, machine disturbance reporting is still performed <strong>manually</strong>, resulting in delayed responses, fragmented documentation, and limited data for maintenance analysis. To address this challenge, I developed Smartandon, a <strong>digital Andon system</strong> that enables operators and supervisors to monitor machine conditions, report disturbances in <strong>real time</strong>, and analyze historical production issues through a centralized web platform.\n\nThe system integrates <strong>real-time reporting</strong>, <strong>historical problem tracking</strong>, and <strong>performance analytics</strong> to support faster maintenance decisions and more efficient production monitoring. By transforming manual reporting processes into a structured digital system, Smartandon improves information transparency and enables data-driven maintenance analysis through key metrics such as Mean Time to Repair <strong>(MTTR)</strong> and Mean Time Between Failures <strong>(MTBF)</strong>.",
-    image: smartandonImg,
-    techStack: ["Vue.js", "Node.js", "Express.js", "MySQL", "CoreUI", "REST API"],
-    problemContext: [
-      "In manufacturing environments, machine disruptions can significantly impact production flow and operational efficiency. However, many factories still rely on <strong>manual reporting systems</strong> for documenting machine failures. This approach often leads to <strong>delayed responses</strong>, inconsistent documentation, and difficulty in analyzing historical maintenance data.",
-      "Without a centralized monitoring platform, operators and maintenance teams have <strong>limited visibility</strong> into machine performance, making it difficult to identify recurring issues or measure production efficiency."
-    ],
-    solution: [
-      "Smartandon was developed as a <strong>web-based Andon system</strong> that digitizes machine disturbance reporting and production monitoring. The system provides a <strong>centralized platform</strong> where operators can report machine issues instantly while supervisors and maintenance teams can monitor production conditions through real-time dashboards.",
-      "The system stores all operational events in a <strong>structured database</strong>, allowing historical analysis of machine failures and enabling <strong>data-driven maintenance strategies</strong>."
-    ],
-    architecture: [
-      "Smartandon is designed using a <strong>modular web application architecture</strong> that separates the system into frontend, backend, and database layers. The frontend is built using <strong>Vue.js</strong> with <strong>CoreUI</strong> components to provide a responsive and intuitive user interface.",
-      "The backend is implemented using <strong>Node.js</strong> and <strong>Express.js</strong> to handle business logic, API routing, and data processing. A <strong>MySQL</strong> relational database is used to store machine disturbance records, historical problem logs, and production performance metrics.",
-      "This architecture enables <strong>scalable data management</strong> and supports real-time monitoring of machine performance across production lines."
-    ],
-    contentTitle: "Key Features",
-    content: [
-      {
-        heading: "Real-Time Machine Monitoring",
-        text: "Smartandon provides a <strong>centralized dashboard</strong> that displays real-time information about machine status, production conditions, and operational disruptions. The dashboard aggregates data such as active problems, repair durations, and production performance metrics to help supervisors monitor factory operations efficiently."
-      },
-      {
-        heading: "Machine Stop Input System",
-        text: "Operators can directly report machine disturbances through the <strong>Machine Stop Input</strong> feature. The system records information such as machine name, problem category, and description of the issue. This input is stored instantly in the database and becomes part of the operational monitoring data."
-      },
-      {
-        heading: "Historical Problem Tracking",
-        text: "All machine disturbances are stored in the <strong>Problem History</strong> module. This feature allows users to search, filter, and analyze past problems based on machine name, production line, date range, and problem category."
-      },
-      {
-        heading: "Performance Metrics (MTBF & MTTR)",
-        text: "Smartandon automatically calculates maintenance performance indicators such as Mean Time to Repair <strong>(MTTR)</strong> and Mean Time Between Failures <strong>(MTBF)</strong>. These metrics help evaluate machine reliability and maintenance efficiency."
-      },
-      {
-        heading: "Maintenance Analytics & Pareto Analysis",
-        text: "The system provides analytical visualizations such as <strong>Pareto charts</strong> to identify the most frequent or impactful machine failures. This helps engineering teams focus on the root causes that have the greatest impact on production efficiency."
-      }
-    ],
-    developmentProcess: [
-      "The system was developed using the <strong>Agile methodology</strong> with a <strong>Feature-Driven Development (FDD)</strong> approach. Development was organized around specific features such as machine disturbance input, historical analysis, and dashboard visualization.",
-      "Each feature was designed, implemented, and tested <strong>iteratively</strong> to ensure system stability and usability. This approach allowed continuous improvement based on system testing and feedback during development."
-    ],
-    impact: [
-      "<strong>Digitalized</strong> manual machine disturbance reporting.",
-      "<strong>Improved visibility</strong> of machine performance across production lines.",
-      "Enabled <strong>structured historical documentation</strong> of machine failures.",
-      "Supported <strong>data-driven maintenance decisions</strong> using MTBF and MTTR metrics.",
-      "<strong>Reduced information delay</strong> between operators and maintenance teams."
-    ]
-  },
-  'robot-inspection': {
-    title: 'Robot Inspection System',
-    category: 'Software Engineering Project',
-    role: 'Frontend Developer',
-    description: "The <strong>Robot Inspection System</strong> is a web-based monitoring and control interface designed to support automated inspection robots used in industrial environments.\n\nThe system enables engineers and operators to monitor robot inspection processes, configure camera settings, manage inspection routing, and interact with inspection data through a web dashboard.\n\nMy role in this project focused on <strong>architecting and developing the frontend application from scratch</strong>, ensuring system stability, and seamlessly integrating it with a backend system built using <strong>Flask</strong> and <strong>REST APIs</strong>.",
-    image: robotInspectionImg, 
-    imagePosition: 'object-top',
-    techStack: ["Vue.js", "JavaScript", "HTML", "CSS", "Flask (Python)", "REST API", "PostgreSQL"],
-    problemContext: [
-      "Inspection robots are used to monitor production environments, but the engineers previously lacked a dedicated, reliable interface to interact with the inspection data and control the robots effectively.",
-      "To address this, there was a critical need to build a <strong>stable and structured web interface from the ground up</strong>. The goal of the project was to design the frontend architecture and create a clean, intuitive application that integrates smoothly with the backend inspection services."
-    ],
-    architecture: [
-      "The system follows a scalable <strong>client–server architecture</strong>:",
-      "<strong>Frontend:</strong> A Vue.js web application used as the primary operator dashboard.",
-      "<strong>Backend:</strong> Flask-based API services that process robot inspection data.",
-      "<strong>Database:</strong> PostgreSQL is used to store inspection data and system configurations.",
-      "<strong>System Flow:</strong> Operators access the dashboard through the web interface. The Vue.js frontend sends requests to Flask REST APIs. The backend services process robot inspection data and configuration parameters, allowing the frontend to render inspection information and system status. The frontend acts as the main control layer for interacting with the inspection infrastructure."
-    ],
-    contentTitle: "Key Features",
-    content: [
-      { heading: "Robot Inspection Dashboard", text: "Displays inspection activities and monitoring data through a structured web interface that allows users to observe system status and inspection workflows." },
-      { heading: "Inspection Routing Interface", text: "Allows operators to manage and visualize robot inspection routes within the system interface." },
-      { heading: "Camera Settings Configuration", text: "Provides a configuration page where camera parameters used by the inspection robot can be adjusted through the web interface." },
-      { heading: "Frontend–Backend API Integration", text: "The frontend communicates with backend services through <strong>REST APIs</strong> built with Flask, enabling data exchange between the web dashboard and the inspection system." },
-      { heading: "Scalable UI Architecture", text: "Built a highly responsive and reliable user interface from scratch, ensuring long-term maintainability and smooth user interactions." }
-    ],
-    engineering: [
-      "Architected and implemented the entire frontend routing structure using <strong>Vue.js</strong>.",
-      "Developed modular UI components for robot inspection monitoring features.",
-      "Designed and developed the robot inspection dashboard layout to ensure high usability.",
-      "Built the camera settings configuration page from the ground up.",
-      "Established a robust state management and component structure for system interaction.",
-      "Integrated the newly built frontend with <strong>Flask-based REST APIs</strong>.",
-      "Collaborated in technical discussions regarding system architecture and API contract design."
-    ],
-    challenges: [
-      "One major challenge was <strong>building a frontend interface from scratch</strong> and integrating it with an independent backend system built using Flask APIs. Establishing clear communication and ensuring compatibility between new frontend routes, API endpoints, and data structures required careful planning and iterative testing.",
-      "Another challenge involved designing an intuitive inspection interface tailored for industrial operators while ensuring the application remained highly performant.",
-      "Through iterative development and continuous feedback, the newly developed frontend became a stable and reliable control layer for the entire system."
-    ],
-    impact: [
-      "Delivered a <strong>highly usable and stable</strong> inspection platform built entirely from scratch.",
-      "Allowed operators to interact with the inspection system <strong>efficiently</strong>, introducing structured routing and a clean UI to simplify system navigation.",
-      "Established a solid frontend foundation that is <strong>easy to maintain and extend</strong> for future industrial system integrations."
-    ],
-    lessonsLearned: [
-      "This project provided hands-on experience in developing web interfaces for <strong>industrial systems</strong> and integrating frontend applications with existing backend infrastructures.",
-      "It also strengthened understanding of <strong>REST API integration</strong>, frontend architecture design, debugging complex UI systems, and collaborating in engineering environments.",
-      "The experience helped build stronger skills in designing maintainable web applications that interact with real-world systems."
-    ]
-  },
-  'stock-prediction': {
-    title: 'Stock Prediction Using LSTM',
-    category: 'Data Analytics Project',
-    role: 'Data Scientist & Data Analyst',
-    description: 'Developed a stock price prediction model using Python and TensorFlow. Achieved a Mean Absolute Error (MAE) below 0.015 and improved accuracy by 15% compared to baseline models.',
-    image: '' // Kosongkan agar template menampilkan placeholder jika belum punya screenshot
-  },
-  'cyclistic-bike-share': {
-    title: 'Cyclistic Bike-Share Analysis',
-    category: 'Data Analytics Project',
-    role: 'Data Analyst • Google Data Analytics Capstone',
-    description: 'Analyzed 25+ million rows of bike-share data using RStudio. Cleaned and standardized datasets to ensure consistency and accuracy. Performed exploratory data analysis to identify behavioral patterns and created 5+ visualizations using ggplot2 to deliver actionable recommendations.',
-    image: ''
+const project = computed(() => projects[route.params.id])
+
+const lightboxImage = ref(null)
+const lightboxAlt = ref('')
+
+function openLightbox(src, alt) {
+  lightboxImage.value = src
+  lightboxAlt.value = alt || ''
+  document.body.style.overflow = 'hidden'
+}
+
+function closeLightbox() {
+  lightboxImage.value = null
+  lightboxAlt.value = ''
+  document.body.style.overflow = ''
+}
+
+function handleKeydown(e) {
+  if (e.key === 'Escape' && lightboxImage.value) {
+    closeLightbox()
   }
 }
 
-const project = computed(() => projectData[route.params.id])
+// Gallery Slider
+const galleryIndex = ref(0)
+
+const currentGalleryCaption = computed(() => {
+  const item = project.value?.gallery?.[galleryIndex.value]
+  return item && typeof item === 'object' ? item.caption : ''
+})
+
+function nextSlide() {
+  if (!project.value?.gallery?.length) return
+  galleryIndex.value = (galleryIndex.value + 1) % project.value.gallery.length
+}
+
+function prevSlide() {
+  if (!project.value?.gallery?.length) return
+  const len = project.value.gallery.length
+  galleryIndex.value = (galleryIndex.value - 1 + len) % len
+}
+
+watch(() => route.params.id, () => { galleryIndex.value = 0 })
+
+onMounted(() => window.addEventListener('keydown', handleKeydown))
+onUnmounted(() => {
+  window.removeEventListener('keydown', handleKeydown)
+  document.body.style.overflow = ''
+})
 </script>
 
 <style scoped>
@@ -300,5 +322,14 @@ const project = computed(() => projectData[route.params.id])
 :deep(strong) {
   color: #E6E6E6;
   font-weight: 600;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.25s ease;
+}
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
 }
 </style>

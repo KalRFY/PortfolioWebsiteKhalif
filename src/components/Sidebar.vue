@@ -20,15 +20,12 @@
       <a href="https://www.behance.net/mkhalifr" target="_blank" class="hover:text-[#E6E6E6] transition-colors" aria-label="Behance">
         <span class="font-bold text-lg leading-none flex items-center justify-center">Bē</span>
       </a>
-      <a href="#" target="_blank" class="hover:text-[#E6E6E6] transition-colors" aria-label="Google Drive">
-        <Triangle class="w-5 h-5" />
-      </a>
     </div>
   </aside>
 </template>
 
 <script setup>
-import { Linkedin, Github, Triangle } from 'lucide-vue-next'
+import { Linkedin, Github } from 'lucide-vue-next'
 import ProfileCard from './ProfileCard.vue'
 import NavigationMenu from './NavigationMenu.vue'
 

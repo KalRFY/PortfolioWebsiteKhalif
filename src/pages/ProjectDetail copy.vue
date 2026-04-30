@@ -81,6 +81,7 @@ import { ArrowLeft } from 'lucide-vue-next'
 
 // Gambar spesifik untuk project jika ada (contoh untuk smartandon)
 import smartandonImg from '../assets/Experience/Smartandon Image 1.jpg'
+import smartandonDashboardImg from '../assets/Experience/SmartandonDashboard.png'
 
 const route = useRoute()
 
@@ -90,7 +91,7 @@ const projectData = {
     category: 'Software Development Project',
     role: 'Software Engineer Intern',
     description: "Smartandon was developed as a web-based production machine performance and disruption monitoring system aimed at supporting fast and accurate decision-making in manufacturing environments. The system's development began with an analysis of user needs (operators, supervisors, and maintenance) through a study of existing business processes at Toyota Plant 3. From this stage, core features such as Machine Stop Input, Problem History, Dashboard Monitoring, and supporting data integration for machine performance analysis were determined. Needs analysis serves as the main foundation for ensuring the system is truly relevant to operational conditions in the field.",
-    image: smartandonImg,
+    image: smartandonDashboardImg,
     content: [
       {
         heading: "System Architecture & Design",

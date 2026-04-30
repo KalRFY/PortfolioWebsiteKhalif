@@ -147,31 +147,30 @@
       </div>
       
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-        <!-- LSTM -->
-        <router-link to="/projects/stock-prediction" class="block p-8 rounded-2xl bg-[#0a0a0a] border border-[#262626] hover:border-[#646464] transition-all shadow-lg group cursor-pointer">
+        <router-link
+          v-for="(item, slug) in projectsList"
+          :key="slug"
+          :to="`/projects/${slug}`"
+          class="block p-8 rounded-2xl bg-[#0a0a0a] border border-[#262626] hover:border-[#646464] transition-all shadow-lg group cursor-pointer"
+        >
           <div class="flex items-center gap-2 mb-6">
-             <div class="px-3 py-1.5 rounded bg-emerald-500/10 text-emerald-400 text-xs font-bold tracking-wider uppercase">Data Analytics</div>
+            <div
+              class="px-3 py-1.5 rounded text-xs font-bold tracking-wider uppercase"
+              :class="categoryClass(item.category)"
+            >
+              {{ item.category }}
+            </div>
           </div>
-          <h3 class="text-xl font-medium text-[#E6E6E6] mb-2 group-hover:text-emerald-400 transition-colors">Stock Prediction Using LSTM</h3>
-          <p class="text-sm font-medium text-[#646464] mb-6">Role: Data Scientist & Data Analyst</p>
-          <ul class="text-base text-[#646464] space-y-3 list-none custom-list-emerald leading-relaxed">
-            <li>Developed stock price prediction model using Python and TensorFlow.</li>
-            <li>Achieved MAE below 0.015 and improved accuracy by 15% compared to baseline models.</li>
-          </ul>
-        </router-link>
-        
-        <!-- Google Capstone -->
-        <router-link to="/projects/cyclistic-bike-share" class="block p-8 rounded-2xl bg-[#0a0a0a] border border-[#262626] hover:border-[#646464] transition-all shadow-lg group cursor-pointer">
-          <div class="flex items-center gap-2 mb-6">
-             <div class="px-3 py-1.5 rounded bg-emerald-500/10 text-emerald-400 text-xs font-bold tracking-wider uppercase">Data Analytics</div>
-          </div>
-          <h3 class="text-xl font-medium text-[#E6E6E6] mb-2 group-hover:text-emerald-400 transition-colors">Cyclistic Bike-Share Analysis</h3>
-          <p class="text-sm font-medium text-[#646464] mb-6">Role: Data Analyst • Google Data Analytics Capstone</p>
-          <ul class="text-base text-[#646464] space-y-3 list-none custom-list-emerald leading-relaxed">
-            <li>Analyzed 25+ million rows of bike-share data using RStudio.</li>
-            <li>Cleaned and standardized datasets to ensure consistency and accuracy.</li>
-            <li>Performed exploratory data analysis to identify behavioral patterns.</li>
-            <li>Created 5+ visualizations using ggplot2 and delivered 3 actionable recommendations to increase annual memberships.</li>
+          <h3 class="text-xl font-medium text-[#E6E6E6] mb-2 transition-colors" :class="hoverTitleClass(item.category)">
+            {{ item.title }}
+          </h3>
+          <p class="text-sm font-medium text-[#646464] mb-6">Role: {{ item.role }}</p>
+          <ul
+            v-if="item.summary && item.summary.length"
+            class="text-base text-[#646464] space-y-3 list-none leading-relaxed"
+            :class="bulletClass(item.category)"
+          >
+            <li v-for="(point, idx) in item.summary" :key="idx" v-html="point"></li>
           </ul>
         </router-link>
       </div>
@@ -222,6 +221,29 @@
 
 <script setup>
 import { Briefcase, FolderGit2, Award } from 'lucide-vue-next'
+import { projects } from '../data/projects'
+
+const projectsList = projects
+
+function isDataAnalytics(category) {
+  return /data\s+analytics/i.test(category || '')
+}
+
+function categoryClass(category) {
+  return isDataAnalytics(category)
+    ? 'bg-emerald-500/10 text-emerald-400'
+    : 'bg-cyan-500/10 text-cyan-400'
+}
+
+function hoverTitleClass(category) {
+  return isDataAnalytics(category)
+    ? 'group-hover:text-emerald-400'
+    : 'group-hover:text-cyan-400'
+}
+
+function bulletClass(category) {
+  return isDataAnalytics(category) ? 'custom-list-emerald' : 'custom-list-cyan'
+}
 
 import tmminImg1 from '../assets/Experience/Smartandon Image 1.jpg'
 import tmminImg2 from '../assets/Experience/Smartandon Image 2.jpg'
@@ -261,5 +283,16 @@ import robotInspectionImg from '../assets/Experience/Robot Inspection 1.jpg'
   position: absolute;
   left: 0;
   color: #34d399; /* emerald-400 */
+}
+
+.custom-list-cyan li {
+  position: relative;
+  padding-left: 1.25rem;
+}
+.custom-list-cyan li::before {
+  content: '→';
+  position: absolute;
+  left: 0;
+  color: #22d3ee; /* cyan-400 */
 }
 </style>
