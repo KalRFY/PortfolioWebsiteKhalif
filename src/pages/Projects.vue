@@ -32,7 +32,17 @@
           <p class="text-sm text-[#646464] mt-1">AI-Based Industrial Robot Frontend</p>
         </router-link>
 
-        <!-- Project 3 - LSTM Stock Prediction -->
+        <!-- Project 3 - BuilderCV -->
+        <router-link to="/projects/buildercv" class="group block cursor-pointer">
+          <div class="w-full aspect-video rounded-2xl bg-[#0a0a0a] mb-4 overflow-hidden border border-[#262626] shadow-xl transition-transform duration-300 group-hover:scale-[1.02]">
+             <img :src="buildercvImg" alt="BuilderCV" class="w-full h-full object-cover object-top" />
+          </div>
+          <div class="text-xs text-cyan-500 font-bold tracking-wider mb-2 uppercase">AI & FULL-STACK SAAS</div>
+          <h3 class="text-xl font-medium text-[#E6E6E6] group-hover:text-cyan-400 transition-colors">BuilderCV</h3>
+          <p class="text-sm text-[#646464] mt-1">AI-Powered Resume Builder & ATS Optimizer</p>
+        </router-link>
+
+        <!-- Project 4 - LSTM Stock Prediction -->
         <router-link to="/projects/stock-prediction" class="group block cursor-pointer">
           <div class="w-full aspect-video rounded-2xl bg-[#0a0a0a] mb-4 overflow-hidden border border-[#262626] shadow-xl transition-transform duration-300 group-hover:scale-[1.02]">
              <div class="w-full h-full bg-[#0d1117] flex flex-col items-center justify-center gap-3 relative overflow-hidden">
@@ -48,7 +58,7 @@
           <p class="text-sm text-[#646464] mt-1">Deep Learning · TensorFlow · Python</p>
         </router-link>
 
-        <!-- Project 4 - Cyclistic Bike-Share (Kaggle) -->
+        <!-- Project 5 - Cyclistic Bike-Share (Kaggle) -->
         <router-link to="/projects/cyclistic-bike-share" class="group block cursor-pointer">
           <div class="w-full aspect-video rounded-2xl bg-[#0a0a0a] mb-4 overflow-hidden border border-[#262626] shadow-xl transition-transform duration-300 group-hover:scale-[1.02]">
              <div class="w-full h-full bg-[#0d1117] flex flex-col items-center justify-center gap-3 relative overflow-hidden">
@@ -94,6 +104,7 @@
 // Projects Component
 import smartandonImg from '../assets/Experience/Smartandon Image 1.jpg'
 import robotInspectionImg from '../assets/Experience/Robot Inspection 1.jpg'
+import buildercvImg from '../assets/Experience/BuilderCV.png'
 </script>
 
 <style scoped>

@@ -6,12 +6,14 @@
 
 import smartandon from './smartandon'
 import robotInspection from './robot-inspection'
+import buildercv from './buildercv'
 import stockPrediction from './stock-prediction'
 import cyclisticBikeShare from './cyclistic-bike-share'
 
 export const projects = {
   'smartandon': smartandon,
   'robot-inspection': robotInspection,
+  'buildercv': buildercv,
   'stock-prediction': stockPrediction,
   'cyclistic-bike-share': cyclisticBikeShare
 }

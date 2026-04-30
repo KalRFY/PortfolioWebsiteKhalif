@@ -51,6 +51,23 @@
         </div>
       </section>
 
+      <!-- Links -->
+      <section v-if="project.links && project.links.length" class="mb-12 fade-in" v-motion-fade-visible-once>
+        <div class="flex flex-wrap gap-3">
+          <a
+            v-for="link in project.links"
+            :key="link.url"
+            :href="link.url"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-medium text-[#E6E6E6] bg-cyan-400/10 border border-cyan-400/30 rounded-full hover:bg-cyan-400 hover:text-black transition-colors"
+          >
+            <ExternalLink class="w-4 h-4" />
+            {{ link.label }}
+          </a>
+        </div>
+      </section>
+
       <!-- Overview Section -->
       <section v-if="project.description" class="mb-16 fade-in" v-motion-fade-visible-once>
         <h2 class="text-2xl font-medium text-[#E6E6E6] mb-6">Overview</h2>
@@ -253,7 +270,7 @@
 <script setup>
 import { computed, ref, watch, onMounted, onUnmounted } from 'vue'
 import { useRoute } from 'vue-router'
-import { ArrowLeft, X, ChevronLeft, ChevronRight } from 'lucide-vue-next'
+import { ArrowLeft, X, ChevronLeft, ChevronRight, ExternalLink } from 'lucide-vue-next'
 
 import { projects } from '../data/projects'
 

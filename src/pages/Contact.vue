@@ -42,10 +42,6 @@
               <span class="w-5 h-5 flex items-center justify-center text-[#646464] group-hover:text-cyan-400 transition-colors font-bold text-sm">Bé</span>
               Behance
             </a>
-            <a href="#" target="_blank" class="flex items-center gap-4 text-base text-[#646464] hover:text-[#E6E6E6] transition-colors group">
-              <Folder class="w-5 h-5 text-[#646464] group-hover:text-cyan-400 transition-colors" />
-              Google Drive Portfolio Files
-            </a>
           </div>
         </div>
         
@@ -95,7 +91,7 @@
 
 <script setup>
 import { reactive } from 'vue'
-import { Mail, Phone, Linkedin, Github, Folder } from 'lucide-vue-next'
+import { Mail, Phone, Linkedin, Github } from 'lucide-vue-next'
 
 const form = reactive({
   name: '',

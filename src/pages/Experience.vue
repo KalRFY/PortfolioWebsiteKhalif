@@ -55,7 +55,7 @@
         <div class="relative flex flex-col md:flex-row items-center md:items-start md:justify-between w-full group">
           <div class="flex flex-col w-full md:w-[45%] items-start text-left pl-10 md:pl-8 pr-0 pt-1 mb-4 md:mb-0 order-1 md:order-3">
              <h3 class="text-lg md:text-xl font-bold md:font-medium text-[#E6E6E6] group-hover:text-cyan-400 transition-colors">Robot Inspection System</h3>
-             <p class="text-xs md:text-sm font-medium text-cyan-500 mb-4">2024 • Frontend Developer</p>
+             <p class="text-xs md:text-sm font-medium text-cyan-500 mb-4">Nov 2025 – Jan 2026 • Karawang, West Java</p>
              <div class="w-full aspect-video rounded-xl bg-[#141414] border border-[#262626] overflow-hidden shadow-sm">
                <img :src="robotInspectionImg" alt="Robot Inspection Experience" class="w-full h-full object-cover object-top hover:scale-105 transition-transform duration-500" />
              </div>
@@ -65,12 +65,11 @@
 
           <div class="w-full md:w-[45%] pl-10 md:pr-8 md:pl-0 text-left md:text-right order-3 md:order-1">
             <div class="p-8 rounded-2xl bg-[#0a0a0a] border border-[#262626] hover:border-[#646464] transition-all shadow-lg text-left hover:shadow-cyan-900/10">
-              <h4 class="text-lg text-[#E6E6E6] font-medium mb-4">Key Contributions</h4>
+              <h4 class="text-lg text-[#E6E6E6] font-medium mb-4">Frontend Developer</h4>
               <ul class="text-base text-[#646464] space-y-3 list-none custom-list leading-relaxed">
-                <li>Architected and developed the frontend application from scratch using Vue.js.</li>
-                <li>Built a highly responsive user interface to monitor industrial robot inspection processes.</li>
-                <li>Integrated the newly built frontend with Flask-based REST APIs.</li>
-                <li>Designed clean UI components for camera settings and routing configurations.</li>
+                <li>Developed responsive frontend interfaces to visualize AI-based robot inspection results and system status in real time.</li>
+                <li>Designed interactive dashboards to display inspection data, detection results, and operational metrics for monitoring purposes.</li>
+                <li>Collaborated with backend engineers and AI developers to align frontend features with system requirements and data workflows.</li>
               </ul>
             </div>
           </div>
@@ -148,30 +147,55 @@
       
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
         <router-link
-          v-for="(item, slug) in projectsList"
+          v-for="(item, slug) in topProjects"
           :key="slug"
           :to="`/projects/${slug}`"
-          class="block p-8 rounded-2xl bg-[#0a0a0a] border border-[#262626] hover:border-[#646464] transition-all shadow-lg group cursor-pointer"
+          class="block rounded-2xl bg-[#0a0a0a] border border-[#262626] hover:border-[#646464] transition-all shadow-lg group cursor-pointer overflow-hidden flex flex-col"
         >
-          <div class="flex items-center gap-2 mb-6">
-            <div
-              class="px-3 py-1.5 rounded text-xs font-bold tracking-wider uppercase"
-              :class="categoryClass(item.category)"
-            >
-              {{ item.category }}
+          <div class="w-full aspect-video bg-[#141414] overflow-hidden">
+            <img
+              v-if="item.image"
+              :src="item.image"
+              :alt="item.title"
+              class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+              :class="item.imagePosition || 'object-center'"
+            />
+            <div v-else class="w-full h-full flex items-center justify-center text-[#646464] text-sm">
+              No Thumbnail
             </div>
           </div>
-          <h3 class="text-xl font-medium text-[#E6E6E6] mb-2 transition-colors" :class="hoverTitleClass(item.category)">
-            {{ item.title }}
-          </h3>
-          <p class="text-sm font-medium text-[#646464] mb-6">Role: {{ item.role }}</p>
-          <ul
-            v-if="item.summary && item.summary.length"
-            class="text-base text-[#646464] space-y-3 list-none leading-relaxed"
-            :class="bulletClass(item.category)"
-          >
-            <li v-for="(point, idx) in item.summary" :key="idx" v-html="point"></li>
-          </ul>
+          <div class="p-6 flex flex-col gap-4 flex-1">
+            <div class="flex items-center gap-2">
+              <div
+                class="px-3 py-1.5 rounded text-xs font-bold tracking-wider uppercase"
+                :class="categoryClass(item.category)"
+              >
+                {{ item.category }}
+              </div>
+            </div>
+            <h3 class="text-xl font-medium text-[#E6E6E6] transition-colors" :class="hoverTitleClass(item.category)">
+              {{ item.title }}
+            </h3>
+            <div class="mt-auto pt-2">
+              <span
+                class="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium border transition-colors"
+                :class="buttonClass(item.category)"
+              >
+                View Project
+                <ArrowRight class="w-4 h-4 transition-transform group-hover:translate-x-1" />
+              </span>
+            </div>
+          </div>
+        </router-link>
+      </div>
+
+      <div class="flex justify-end mt-10">
+        <router-link
+          to="/projects"
+          class="inline-flex items-center gap-2 px-6 py-3 rounded-full text-sm font-medium text-[#E6E6E6] border border-[#262626] hover:border-[#646464] hover:bg-[#141414] transition-colors group"
+        >
+          View All Projects
+          <ArrowRight class="w-4 h-4 transition-transform group-hover:translate-x-1" />
         </router-link>
       </div>
     </section>
@@ -220,10 +244,10 @@
 </template>
 
 <script setup>
-import { Briefcase, FolderGit2, Award } from 'lucide-vue-next'
+import { Briefcase, FolderGit2, Award, ArrowRight } from 'lucide-vue-next'
 import { projects } from '../data/projects'
 
-const projectsList = projects
+const topProjects = Object.fromEntries(Object.entries(projects).slice(0, 2))
 
 function isDataAnalytics(category) {
   return /data\s+analytics/i.test(category || '')
@@ -241,8 +265,10 @@ function hoverTitleClass(category) {
     : 'group-hover:text-cyan-400'
 }
 
-function bulletClass(category) {
-  return isDataAnalytics(category) ? 'custom-list-emerald' : 'custom-list-cyan'
+function buttonClass(category) {
+  return isDataAnalytics(category)
+    ? 'border-emerald-400/30 text-emerald-400 group-hover:bg-emerald-400 group-hover:text-black'
+    : 'border-cyan-400/30 text-cyan-400 group-hover:bg-cyan-400 group-hover:text-black'
 }
 
 import tmminImg1 from '../assets/Experience/Smartandon Image 1.jpg'
